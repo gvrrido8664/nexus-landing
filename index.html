@@ -184,6 +184,28 @@
     .download-note { margin-top: 12px; color: var(--teal); font-size: 12px; font-weight: 600; }
     .install-steps { text-align: left; max-width: 680px; margin: 0 auto; }
 
+    /* ─── PRIVACY ─── */
+    .privacy-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px; margin-bottom: 32px;
+    }
+    .privacy-card {
+      background: var(--card); border: 1px solid var(--border-subtle);
+      border-radius: 10px; padding: 22px 18px;
+      transition: border-color 0.2s;
+    }
+    .privacy-card:hover { border-color: var(--teal); }
+    .privacy-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: var(--teal); }
+    .privacy-card p { color: var(--text-muted); font-size: 12px; line-height: 1.6; }
+    .privacy-card code { background: var(--panel); padding: 1px 6px; border-radius: 4px; font-size: 11px; color: var(--teal); }
+    .disclaimer-banner {
+      background: rgba(230,57,70,0.06); border: 1px solid rgba(230,57,70,0.18);
+      border-radius: 10px; padding: 16px 20px; text-align: center;
+    }
+    .disclaimer-banner p {
+      color: var(--text-muted); font-size: 11px; line-height: 1.6; margin: 0;
+    }
+
     .step-num {
       width: 44px; height: 44px; border-radius: 50%; background: var(--accent);
       color: #fff; font-size: 18px; font-weight: 800; line-height: 44px;
@@ -255,7 +277,8 @@
       <li><a href="#features">Features</a></li>
       <li><a href="#how">Como funciona</a></li>
       <li><a href="#screenshots">Capturas</a></li>
-      <li><a href="#download">Descargar</a></li>
+      <li><a href="#privacy">Privacidad</a></li>
+      <li><a href="#download">Probar</a></li>
     </ul>
   </div>
 </nav>
@@ -265,9 +288,9 @@
   <div class="container">
     <div class="hero-badge">v2.2 — Junio 2026</div>
     <h1>NEXUS</h1>
-    <p class="sub">Asistente de Draft con IA para League of Legends. Recomendaciones en tiempo real, coaching personalizado y overlay en partida.</p>
+    <p class="sub">Herramienta de analisis y asistencia para League of Legends. Informacion en tiempo real para tomar mejores decisiones durante el draft, coaching personalizado y mas.</p>
     <div class="hero-buttons">
-      <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases" class="btn btn-primary" target="_blank" rel="noopener">Descargar NEXUS</a>
+      <a href="https://github.com/gvrrido8664/lol-recommender-ai" class="btn btn-primary" target="_blank" rel="noopener">Ver en GitHub</a>
       <a href="#how" class="btn btn-outline">Como funciona</a>
     </div>
   </div>
@@ -285,13 +308,13 @@
       <div class="feature-card">
         <div class="feature-icon">📡</div>
         <h3>Radar en Vivo</h3>
-        <p>Draft en tiempo real: counter picks, sinergias de equipo, bans sugeridos, winrate estimado 5v5 y analisis de composicion mientras elegis campeon.</p>
+        <p>Durante la seleccion de campeones, NEXUS te muestra datos utiles: counters, sinergias de equipo, bans populares, winrate estimado 5v5 y analisis de composicion. La decision final es tuya.</p>
       </div>
 
       <div class="feature-card">
         <div class="feature-icon">🧠</div>
-        <h3>Recomendaciones IA</h3>
-        <p>Runas optimas, hechizos de invocador, orden de habilidades y sets de items recomendados para cada matchup. Importacion automatica al cliente de LoL.</p>
+        <h3>Asistencia inteligente</h3>
+        <p>Informacion sobre runas optimas, hechizos de invocador, orden de habilidades y sets de items para cada matchup. Datos para que decidas vos como queres jugar.</p>
       </div>
 
       <div class="feature-card">
@@ -327,7 +350,7 @@
       <div class="feature-card">
         <div class="feature-icon">🎮</div>
         <h3>Discord Rich Presence</h3>
-        <p>Muestra en Discord la fase del juego en la que estas: en cola, champ select o en partida. Auto-aceptar partida configurable.</p>
+        <p>Muestra en Discord la fase del juego en la que estas: en cola, champ select o en partida. Integracion opcional y configurable.</p>
       </div>
 
       <div class="feature-card">
@@ -469,12 +492,48 @@
   </div>
 </section>
 
+<!-- ═══════════════════════════════════════ PRIVACIDAD ═══════════════════════════════════════ -->
+<section id="privacy">
+  <div class="container">
+    <div class="section-head">
+      <h2>Tu privacidad es primero</h2>
+      <p>NEXUS funciona localmente. No compartimos tus datos con nadie.</p>
+    </div>
+    <div class="privacy-grid">
+      <div class="privacy-card">
+        <div class="feature-icon">🔒</div>
+        <h4>Tu API key esta segura</h4>
+        <p>La clave de API se guarda localmente en <code>config.json</code>, fuera del ejecutable. NEXUS nunca envia tu API key a servidores externos.</p>
+      </div>
+      <div class="privacy-card">
+        <div class="feature-icon">🏠</div>
+        <h4>100% local</h4>
+        <p>Todos los datos se procesan y almacenan en tu equipo usando SQLite. Tu historial de partidas, drafts y estadisticas nunca salen de tu PC.</p>
+      </div>
+      <div class="privacy-card">
+        <div class="feature-icon">🚫</div>
+        <h4>No modifica el juego</h4>
+        <p>NEXUS no altera el cliente de LoL, no inyecta codigo ni automatiza acciones de juego. Solo consulta datos de la API local (LCU) y la API de Riot.</p>
+      </div>
+      <div class="privacy-card">
+        <div class="feature-icon">📄</div>
+        <h4>Cumple con las politicas de Riot</h4>
+        <p>Usamos exclusivamente los endpoints documentados de la API de Riot Games y la LCU. No hacemos scraping ni usamos datos de fuentes no oficiales.</p>
+      </div>
+    </div>
+
+    <div class="disclaimer-banner">
+      <p>NEXUS is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ═══════════════════════════════════════ DOWNLOAD ═══════════════════════════════════════ -->
 <section id="download">
   <div class="container">
     <div class="section-head">
-      <h2>Descarga NEXUS</h2>
-      <p>Compatible con Windows. Instalacion en menos de 2 minutos.</p>
+      <h2>Probalo gratis</h2>
+      <p>Open source. Sin costo. Corre localmente en tu equipo.</p>
     </div>
 
     <div class="download-card">
@@ -485,29 +544,32 @@
           <span class="badge">Python 3.10+</span>
           <span class="badge">Open Source</span>
         </div>
-        <p style="margin: 16px 0; color: var(--text-muted); font-size: 14px;">Asistente de Draft con IA para League of Legends. Recomendaciones en tiempo real, overlay en partida, coaching personalizado y mas.</p>
+        <p style="margin: 16px 0; color: var(--text-muted); font-size: 14px;">
+          El proyecto esta en desarrollo activo y el codigo fuente esta disponible. 
+          Ejecutalo directamente desde el codigo o espera la version compilada proximamente.
+        </p>
 
         <div class="requirements">
           <h4>Requisitos</h4>
           <ul>
             <li>Windows 10 o superior (64-bit)</li>
             <li>League of Legends instalado y actualizado</li>
-            <li>3 GB de espacio libre en disco</li>
+            <li>Python 3.10 o superior</li>
             <li>Conexion a internet para datos del parche</li>
           </ul>
         </div>
       </div>
 
       <div class="download-actions">
-        <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
-          <span style="font-size:18px;">⬇</span> Descargar ultima version
+        <a href="https://github.com/gvrrido8664/lol-recommender-ai" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+          <span style="font-size:18px;">📁</span> Ver en GitHub
         </a>
-        <p class="download-note">Gratis y de codigo abierto</p>
+        <p class="download-note">Release compilada pronto</p>
       </div>
     </div>
 
     <div class="install-steps">
-      <h4 style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">Instalacion rapida:</h4>
+      <h4 style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">Para probarlo ahora:</h4>
       <code style="display:block; background:var(--card); padding:14px 18px; border-radius:8px; border:1px solid var(--border-subtle); color:var(--teal); font-size:13px; text-align:left; line-height:1.8;">
 git clone https://github.com/gvrrido8664/lol-recommender-ai.git<br>
 cd lol-recommender-ai<br>
@@ -517,7 +579,6 @@ pip install -r requirements.txt<br>
 python setup.py<br>
 python app.py
       </code>
-      <p style="margin-top:10px; font-size:12px; color:var(--text-muted);">Tambien disponible como <strong>.exe</strong> compilado en <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases" target="_blank" rel="noopener">GitHub Releases</a></p>
     </div>
   </div>
 </section>
