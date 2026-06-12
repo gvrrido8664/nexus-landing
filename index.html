@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="NEXUS — Asistente de Draft con IA para League of Legends. Recomendaciones en tiempo real, counters, runas, hechizos, overlay y coaching.">
+  <title>NEXUS — Asistente de Draft con IA | League of Legends</title>
+  <style>
+    :root {
+      --bg: #05080f;
+      --panel: #0c101a;
+      --card: #111827;
+      --border-subtle: #1e293b;
+      --accent: #e63946;
+      --accent-glow: #f43f5e;
+      --teal: #2dd4bf;
+      --text: #f1f5f9;
+      --text-muted: #64748b;
+      --green: #22c55e;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { color: var(--accent-glow); }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── NAV ─── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(5,8,15,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 14px 0;
+    }
+    nav .container {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .nav-logo { font-size: 22px; font-weight: 800; letter-spacing: 2px; color: var(--accent); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { color: var(--text-muted); font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* ─── HERO ─── */
+    .hero {
+      text-align: center; padding: 100px 0 80px;
+      background: radial-gradient(ellipse 60% 50% at 50% 30%, rgba(230,57,70,0.10), transparent 70%);
+    }
+    .hero-badge {
+      display: inline-block; background: rgba(230,57,70,0.15); color: var(--accent);
+      font-size: 13px; font-weight: 600; padding: 6px 18px; border-radius: 20px;
+      border: 1px solid rgba(230,57,70,0.25); margin-bottom: 28px; letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-size: 60px; font-weight: 900; letter-spacing: 6px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-glow));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+    .hero p.sub { font-size: 20px; color: var(--text-muted); max-width: 580px; margin: 0 auto 40px; }
+    .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 14px 32px; border-radius: 8px; font-weight: 700; font-size: 15px;
+      transition: all 0.2s; cursor: pointer; border: none;
+    }
+    .btn-primary { background: var(--accent); color: #fff; }
+    .btn-primary:hover { background: var(--accent-glow); transform: translateY(-1px); box-shadow: 0 4px 20px rgba(230,57,70,0.35); }
+    .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border-subtle); }
+    .btn-outline:hover { border-color: var(--accent); background: rgba(230,57,70,0.08); }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 80px 0; }
+    section:nth-child(even) { background: var(--panel); }
+    .section-head { text-align: center; margin-bottom: 48px; }
+    .section-head h2 { font-size: 32px; font-weight: 800; margin-bottom: 10px; }
+    .section-head p { color: var(--text-muted); font-size: 16px; max-width: 500px; margin: 0 auto; }
+
+    /* ─── FEATURES ─── */
+    .features-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+    .feature-card {
+      background: var(--card); border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 28px 24px; transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+    .feature-icon { font-size: 28px; margin-bottom: 14px; }
+    .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .feature-card p { color: var(--text-muted); font-size: 13px; line-height: 1.6; }
+
+    /* ─── HOW IT WORKS ─── */
+    .steps { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+    .step {
+      text-align: center; flex: 1; min-width: 140px; max-width: 220px;
+      padding: 24px 16px; background: var(--card); border-radius: 12px;
+      border: 1px solid var(--border-subtle);
+    }
+    .step-num {
+      width: 44px; height: 44px; border-radius: 50%; background: var(--accent);
+      color: #fff; font-size: 18px; font-weight: 800; line-height: 44px;
+      margin: 0 auto 14px;
+    }
+    .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+    .step p { color: var(--text-muted); font-size: 12px; }
+
+    /* ─── SCREENSHOTS ─── */
+    .screenshots-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .screenshot-card {
+      background: var(--card); border: 1px solid var(--border-subtle);
+      border-radius: 10px; overflow: hidden;
+    }
+    .screenshot-card img {
+      width: 100%; display: block; background: var(--panel);
+    }
+    .screenshot-card .label { padding: 12px 16px; font-size: 13px; font-weight: 600; }
+
+    .screenshot-placeholder {
+      aspect-ratio: 16/10; background: var(--panel);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text-muted); font-size: 14px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    /* ─── COMUNIDAD ─── */
+    .stats-row { display: flex; gap: 40px; justify-content: center; flex-wrap: wrap; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 40px; font-weight: 900; color: var(--accent); }
+    .stat-label { color: var(--text-muted); font-size: 13px; margin-top: 2px; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 32px 0; text-align: center;
+    }
+    footer .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
+    footer .footer-links a { color: var(--text-muted); font-size: 13px; }
+    footer .footer-links a:hover { color: var(--text); }
+    footer .copy { color: var(--text-muted); font-size: 12px; }
+
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 36px; letter-spacing: 4px; }
+      .hero p.sub { font-size: 16px; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════ NAV ═══════════════════════════════════════ -->
+<nav>
+  <div class="container">
+    <span class="nav-logo">NEXUS</span>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#how">Como funciona</a></li>
+      <li><a href="#screenshots">Capturas</a></li>
+      <li><a href="#download">Descargar</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-badge">v2.2 — Junio 2026</div>
+    <h1>NEXUS</h1>
+    <p class="sub">Asistente de Draft con IA para League of Legends. Recomendaciones en tiempo real, coaching personalizado y overlay en partida.</p>
+    <div class="hero-buttons">
+      <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases" class="btn btn-primary" target="_blank" rel="noopener">Descargar NEXUS</a>
+      <a href="#how" class="btn btn-outline">Como funciona</a>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════ FEATURES ═══════════════════════════════════════ -->
+<section id="features">
+  <div class="container">
+    <div class="section-head">
+      <h2>Todo lo que necesitas para mejorar</h2>
+      <p>NEXUS se conecta al cliente de LoL y te da datos accionables en cada fase del juego.</p>
+    </div>
+    <div class="features-grid">
+
+      <div class="feature-card">
+        <div class="feature-icon">📡</div>
+        <h3>Radar en Vivo</h3>
+        <p>Draft en tiempo real: counter picks, sinergias de equipo, bans sugeridos, winrate estimado 5v5 y analisis de composicion mientras elegis campeon.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🧠</div>
+        <h3>Recomendaciones IA</h3>
+        <p>Runas optimas, hechizos de invocador, orden de habilidades y sets de items recomendados para cada matchup. Importacion automatica al cliente de LoL.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Mi Perfil</h3>
+        <p>Estadisticas completas: winrate por linea y campeon, historial de partidas, ligas, maestrias, fatiga y estado mental en una vista clara.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3>Coaching Pro</h3>
+        <p>Reporte personalizado con analisis de habitos, champion pool, filosofia de juego y ejercicios de practica deliberada basados en tus estadisticas reales.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🖥️</div>
+        <h3>Overlay en Partida</h3>
+        <p>Datos en vivo superpuestos sobre el juego: KDA, CS, temporizadores de objetivos y estado de los 10 jugadores en tiempo real.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚔️</div>
+        <h3>Simulador 1v1</h3>
+        <p>Prediccion de enfrentamientos usando Machine Learning (Random Forest) con datos reales de partidas. Consejos tacticos por clase de campeon.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📝</div>
+        <h3>Historial de Drafts</h3>
+        <p>Guarda cada draft: picks, bans, aliados, enemigos y winrate predicho. Revisa tus decisiones pasadas y aprende de cada partida.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎮</div>
+        <h3>Discord Rich Presence</h3>
+        <p>Muestra en Discord la fase del juego en la que estas: en cola, champ select o en partida. Auto-aceptar partida configurable.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏆</div>
+        <h3>Sistema de Logros</h3>
+        <p>15 logros para desbloquear: Primera Sangre, En Rachaaa, Bibliotecario, El Invencible y mas. Visibles en tu perfil.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ HOW IT WORKS ═══════════════════════════════════════ -->
+<section id="how">
+  <div class="container">
+    <div class="section-head">
+      <h2>Como funciona</h2>
+      <p>NEXUS se integra directamente con el cliente de League of Legends. Sin configuraciones complicadas.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h4>Abre NEXUS</h4>
+        <p>Ejecuta la aplicacion. En el primer arranque se descargan los datos del parche actual automaticamente.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h4>Abre LoL</h4>
+        <p>NEXUS detecta automaticamente el cliente de League of Legends y se conecta via la API local (LCU).</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h4>Elegi campeon</h4>
+        <p>Durante la seleccion de campeones, el Radar en Vivo te muestra counters, runas, bans y consejos en tiempo real.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h4>Mejora</h4>
+        <p>Revisa tu perfil, recibi coaching personalizado y mira el overlay durante la partida para tomar mejores decisiones.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ SCREENSHOTS ═══════════════════════════════════════ -->
+<section id="screenshots">
+  <div class="container">
+    <div class="section-head">
+      <h2>Capturas de NEXUS</h2>
+      <p>Asi se ve la aplicacion en accion.</p>
+    </div>
+    <div class="screenshots-grid">
+      <div class="screenshot-card">
+        <div class="screenshot-placeholder">Captura pendiente — Radar en Vivo</div>
+        <div class="label">Radar en Vivo</div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-placeholder">Captura pendiente — Mi Perfil</div>
+        <div class="label">Mi Perfil</div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-placeholder">Captura pendiente — Coaching Pro</div>
+        <div class="label">Coaching Pro</div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-placeholder">Captura pendiente — Overlay</div>
+        <div class="label">Overlay en Partida</div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-placeholder">Captura pendiente — Simulador 1v1</div>
+        <div class="label">Simulador 1v1</div>
+      </div>
+      <div class="screenshot-card">
+        <div class="screenshot-placeholder">Captura pendiente — Tier List de Bans</div>
+        <div class="label">Tier List de Bans</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ DOWNLOAD ═══════════════════════════════════════ -->
+<section id="download">
+  <div class="container" style="text-align: center;">
+    <div class="section-head">
+      <h2>Descarga NEXUS</h2>
+      <p>Disponible para Windows. Requiere League of Legends instalado.</p>
+    </div>
+    <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases" class="btn btn-primary" target="_blank" rel="noopener" style="font-size: 16px; padding: 16px 40px;">
+      Descargar ultima version
+    </a>
+    <p style="margin-top: 16px; color: var(--text-muted); font-size: 13px;">
+      Tambien disponible en <a href="https://github.com/gvrrido8664/lol-recommender-ai" target="_blank" rel="noopener">GitHub</a>
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════ FOOTER ═══════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <div class="footer-links">
+      <a href="terms.html">Terminos de Servicio</a>
+      <a href="privacy.html">Politica de Privacidad</a>
+      <a href="https://github.com/gvrrido8664/lol-recommender-ai" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:contacto@nexuslol.app">Contacto</a>
+    </div>
+    <p class="copy">NEXUS is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+  </div>
+</footer>
+
+</body>
+</html>

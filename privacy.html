@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Politica de Privacidad — NEXUS</title>
+  <style>
+    :root { --bg: #05080f; --text: #f1f5f9; --text-muted: #64748b; --accent: #e63946; --border: #1e293b; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; padding: 40px 24px; }
+    .container { max-width: 800px; margin: 0 auto; }
+    h1 { font-size: 28px; font-weight: 800; color: var(--accent); margin-bottom: 8px; }
+    h2 { font-size: 20px; font-weight: 700; margin-top: 32px; margin-bottom: 10px; }
+    p { color: var(--text-muted); margin-bottom: 14px; font-size: 14px; }
+    ul { color: var(--text-muted); margin-bottom: 14px; margin-left: 20px; font-size: 14px; }
+    li { margin-bottom: 6px; }
+    a { color: var(--accent); }
+    .back { display: inline-block; margin-bottom: 24px; color: var(--text-muted); font-size: 13px; }
+    .last-updated { color: var(--text-muted); font-size: 12px; margin-bottom: 32px; }
+  </style>
+</head>
+<body>
+<div class="container">
+  <a href="index.html" class="back">← Volver a NEXUS</a>
+  <h1>Politica de Privacidad</h1>
+  <p class="last-updated">Ultima actualizacion: Junio 2026</p>
+
+  <h2>1. Informacion General</h2>
+  <p>En NEXUS ("la Aplicacion", "nosotros"), respetamos tu privacidad. Esta Politica describe que datos recopilamos, como los usamos y como los protegemos.</p>
+
+  <h2>2. Datos que Recopilamos</h2>
+  <p>NEXUS opera principalmente de forma local en tu equipo. Los datos que recopilamos y procesamos incluyen:</p>
+  <ul>
+    <li><strong>Datos del juego:</strong> Informacion de tu cuenta de League of Legends obtenida a traves de la API local del cliente (LCU) y la API de Riot Games, incluyendo nombre de invocador, nivel, ligas, maestrias de campeones, historial de partidas y estadisticas de juego.</li>
+    <li><strong>Datos de configuracion:</strong> Preferencias de usuario como configuracion de pantalla, frecuencias de actualizacion y ajustes de la interfaz.</li>
+    <li><strong>Datos de uso local:</strong> Estadisticas de uso de la aplicacion almacenadas exclusivamente en tu equipo.</li>
+  </ul>
+
+  <h2>3. Como Usamos los Datos</h2>
+  <p>Todos los datos se utilizan exclusivamente para proporcionar las funcionalidades de la Aplicacion:</p>
+  <ul>
+    <li>Generar recomendaciones de campeones, runas, hechizos e items</li>
+    <li>Mostrar estadisticas y analisis de rendimiento</li>
+    <li>Personalizar la experiencia de coaching</li>
+    <li>Guardar tu historial de drafts y partidas</li>
+    <li>Mejorar los algoritmos de recomendacion</li>
+  </ul>
+
+  <h2>4. Almacenamiento de Datos</h2>
+  <p>NEXUS almacena los datos localmente en tu equipo utilizando SQLite. Los datos del juego se obtienen en tiempo real desde las APIs de Riot Games y no se almacenan en servidores externos. La configuracion de usuario se guarda en un archivo JSON en tu carpeta de aplicacion.</p>
+
+  <h2>5. Datos de la API de Riot Games</h2>
+  <p>NEXUS utiliza la API de Riot Games de acuerdo con las politicas de desarrollador de Riot Games. Los datos obtenidos a traves de esta API se procesan localmente y no se comparten, venden ni distribuyen a terceros.</p>
+
+  <h2>6. Terceros</h2>
+  <p>No compartimos datos personales con terceros. Las unicas conexiones externas de la Aplicacion son:</p>
+  <ul>
+    <li>API de Riot Games (para obtener datos del juego)</li>
+    <li>Data Dragon de Riot (para descargar iconos y assets del juego)</li>
+    <li>GitHub Releases API (para verificar actualizaciones de la aplicacion)</li>
+    <li>Discord RPC (opcional, solo si el usuario tiene Discord abierto)</li>
+  </ul>
+
+  <h2>7. Seguridad</h2>
+  <p>La Aplicacion no recopila ni transmite credenciales de inicio de sesion de Riot Games. Las llamadas a la API de Riot Games se realizan utilizando tokens de sesion locales generados por el cliente de League of Legends, que nunca abandonan tu equipo.</p>
+
+  <h2>8. API Key</h2>
+  <p>La clave de API de Riot Games proporcionada por el usuario se almacena localmente en un archivo de configuracion. No enviamos tu API key a ningun servidor externo.</p>
+
+  <h2>9. Cambios a esta Politica</h2>
+  <p>Podemos actualizar esta Politica de Privacidad ocasionalmente. Te notificaremos los cambios publicando la nueva version en esta pagina.</p>
+
+  <h2>10. Contacto</h2>
+  <p>Para preguntas sobre esta Politica de Privacidad, contactanos en: <a href="mailto:contacto@nexuslol.app">contacto@nexuslol.app</a></p>
+</div>
+</body>
+</html>
