@@ -3,8 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="NEXUS — Asistente de Draft con IA para League of Legends. Recomendaciones en tiempo real, counters, runas, hechizos, overlay y coaching.">
+  <meta name="description" content="NEXUS — Asistente de Draft con IA para League of Legends. Recomendaciones en tiempo real de counters, runas, hechizos, items y bans. Overlay en partida, coaching personalizado y simulador 1v1 con Machine Learning.">
+  <meta name="keywords" content="League of Legends, draft assistant, LoL counter pick, AI coaching, overlay LoL, LoL helper, Nexus, LoL recommendations, runes, items, bans, champion select">
+  <meta name="author" content="Ignacio Garrido">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#05080f">
+  <link rel="canonical" href="https://nexus-landing-navy.vercel.app">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="NEXUS — Asistente de Draft con IA | League of Legends">
+  <meta property="og:description" content="Draft en tiempo real con IA: counters, runas, hechizos, overlay y coaching personalizado para League of Legends.">
+  <meta property="og:url" content="https://nexus-landing-navy.vercel.app">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_LA">
+  <meta property="og:site_name" content="NEXUS">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="NEXUS — Asistente de Draft con IA | League of Legends">
+  <meta name="twitter:description" content="Recomendaciones en tiempo real, coaching y overlay para LoL.">
+
   <title>NEXUS — Asistente de Draft con IA | League of Legends</title>
+
+  <!-- Favicon (SVG inline) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%2305080f'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Segoe UI,Arial,sans-serif' font-weight='900' font-size='20' fill='%23e63946'>N</text></svg>">
   <style>
     :root {
       --bg: #05080f;
@@ -21,18 +43,38 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html { scroll-behavior: smooth; }
+
     body {
       font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.6;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
     }
 
-    a { color: var(--accent); text-decoration: none; }
+    a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
     a:hover { color: var(--accent-glow); }
 
     .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+
+    /* ─── FADE-IN ANIMATION ─── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .feature-card, .step-row, .screenshot-card, .download-card {
+      animation: fadeInUp 0.6s ease-out both;
+    }
+    .feature-card:nth-child(2) { animation-delay: 0.1s; }
+    .feature-card:nth-child(3) { animation-delay: 0.2s; }
+    .feature-card:nth-child(4) { animation-delay: 0.3s; }
+    .feature-card:nth-child(5) { animation-delay: 0.1s; }
+    .feature-card:nth-child(6) { animation-delay: 0.2s; }
+    .feature-card:nth-child(7) { animation-delay: 0.3s; }
+    .feature-card:nth-child(8) { animation-delay: 0.1s; }
+    .feature-card:nth-child(9) { animation-delay: 0.2s; }
 
     /* ─── NAV ─── */
     nav {
@@ -99,20 +141,54 @@
     .feature-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
     .feature-card p { color: var(--text-muted); font-size: 13px; line-height: 1.6; }
 
-    /* ─── HOW IT WORKS ─── */
-    .steps { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
-    .step {
-      text-align: center; flex: 1; min-width: 140px; max-width: 220px;
-      padding: 24px 16px; background: var(--card); border-radius: 12px;
-      border: 1px solid var(--border-subtle);
+    /* ─── HOW IT WORKS — VISUAL ─── */
+    .steps-visual { display: flex; flex-direction: column; gap: 32px; }
+    .step-row {
+      display: flex; gap: 40px; align-items: center;
+      background: var(--card); border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 32px;
+      transition: border-color 0.3s;
     }
+    .step-row:hover { border-color: var(--accent); }
+    .step-row.reverse { flex-direction: row-reverse; }
+    .step-content { flex: 1; min-width: 0; }
+    .step-content h4 { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+    .step-content p { color: var(--text-muted); font-size: 13px; line-height: 1.7; margin-bottom: 12px; }
+    .step-media { flex: 1; min-width: 0; }
+    .step-media img { width: 100%; border-radius: 8px; border: 1px solid var(--border-subtle); display: block; }
+    .step-details { list-style: none; padding: 0; }
+    .step-details li { color: var(--text-muted); font-size: 12px; padding: 4px 0 4px 18px; position: relative; }
+    .step-details li::before { content: "▸"; color: var(--accent); position: absolute; left: 0; font-size: 10px; top: 5px; }
+
+    /* ─── DOWNLOAD ─── */
+    .download-card {
+      display: flex; gap: 40px; align-items: center;
+      background: var(--card); border: 1px solid var(--border-subtle);
+      border-radius: 12px; padding: 36px 32px; margin-bottom: 24px;
+    }
+    .download-info { flex: 1; }
+    .download-info h3 { font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .badge {
+      display: inline-block; background: rgba(45,212,191,0.12); color: var(--teal);
+      font-size: 11px; font-weight: 600; padding: 4px 12px; border-radius: 14px;
+      border: 1px solid rgba(45,212,191,0.20);
+    }
+    .requirements { margin-top: 16px; }
+    .requirements h4 { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 6px; }
+    .requirements ul { list-style: none; padding: 0; }
+    .requirements li { color: var(--text-muted); font-size: 12px; padding: 3px 0 3px 18px; position: relative; }
+    .requirements li::before { content: "•"; color: var(--accent); position: absolute; left: 4px; }
+    .download-actions { text-align: center; flex-shrink: 0; }
+    .btn-lg { font-size: 16px; padding: 18px 36px; }
+    .download-note { margin-top: 12px; color: var(--teal); font-size: 12px; font-weight: 600; }
+    .install-steps { text-align: left; max-width: 680px; margin: 0 auto; }
+
     .step-num {
       width: 44px; height: 44px; border-radius: 50%; background: var(--accent);
       color: #fff; font-size: 18px; font-weight: 800; line-height: 44px;
-      margin: 0 auto 14px;
+      text-align: center; margin-bottom: 10px;
     }
-    .step h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
-    .step p { color: var(--text-muted); font-size: 12px; }
 
     /* ─── SCREENSHOTS ─── */
     .screenshots-grid {
@@ -144,17 +220,28 @@
     /* ─── FOOTER ─── */
     footer {
       border-top: 1px solid var(--border-subtle);
-      padding: 32px 0; text-align: center;
+      padding: 36px 0; text-align: center;
+      background: var(--panel);
     }
     footer .footer-links { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; margin-bottom: 12px; }
-    footer .footer-links a { color: var(--text-muted); font-size: 13px; }
+    footer .footer-links a { color: var(--text-muted); font-size: 13px; transition: color 0.2s; }
     footer .footer-links a:hover { color: var(--text); }
-    footer .copy { color: var(--text-muted); font-size: 12px; }
+    footer .copy { color: var(--text-muted); font-size: 11px; max-width: 700px; margin: 0 auto; }
+    footer .footer-meta { display: flex; gap: 16px; justify-content: center; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+    footer .footer-version { color: var(--teal); font-size: 11px; font-weight: 600; background: rgba(45,212,191,0.08); padding: 2px 10px; border-radius: 10px; }
 
-    @media (max-width: 640px) {
+    @media (max-width: 768px) {
       .hero h1 { font-size: 36px; letter-spacing: 4px; }
       .hero p.sub { font-size: 16px; }
       .nav-links { display: none; }
+      .step-row, .step-row.reverse { flex-direction: column !important; gap: 20px; padding: 20px; }
+      .step-media { order: -1; }
+      .download-card { flex-direction: column; text-align: center; }
+      .badges { justify-content: center; }
+      .download-actions { width: 100%; }
+      .download-actions .btn-lg { width: 100%; }
+      .screenshots-grid { grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); }
+      .features-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -258,29 +345,79 @@
   <div class="container">
     <div class="section-head">
       <h2>Como funciona</h2>
-      <p>NEXUS se integra directamente con el cliente de League of Legends. Sin configuraciones complicadas.</p>
+      <p>NEXUS se conecta al cliente de LoL y te da recomendaciones en tiempo real. Asi es el flujo completo.</p>
     </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">1</div>
-        <h4>Abre NEXUS</h4>
-        <p>Ejecuta la aplicacion. En el primer arranque se descargan los datos del parche actual automaticamente.</p>
+    <div class="steps-visual">
+
+      <div class="step-row">
+        <div class="step-content">
+          <div class="step-num">1</div>
+          <h4>Ejecuta NEXUS</h4>
+          <p>Al abrir la aplicacion, detecta automaticamente si tenes League of Legends instalado. Descarga los ultimos datos del parche via Data Dragon y carga el modelo de Machine Learning para el simulador 1v1.</p>
+          <ul class="step-details">
+            <li>Setup wizard automatico en el primer arranque</li>
+            <li>Datos actualizados cada parche (auto-update)</li>
+            <li>Sin configuracion manual necesaria</li>
+          </ul>
+        </div>
+        <div class="step-media">
+          <img src="assets/screenshots/mi-perfil.png" alt="NEXUS Mi Perfil" loading="lazy" onerror="this.style.opacity='0.3'">
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">2</div>
-        <h4>Abre LoL</h4>
-        <p>NEXUS detecta automaticamente el cliente de League of Legends y se conecta via la API local (LCU).</p>
+
+      <div class="step-row reverse">
+        <div class="step-media">
+          <img src="assets/screenshots/radar-en-vivo.png" alt="Radar en Vivo de NEXUS" loading="lazy" onerror="this.style.opacity='0.3'">
+        </div>
+        <div class="step-content">
+          <div class="step-num">2</div>
+          <h4>Entra a Champ Select</h4>
+          <p>NEXUS detecta cuando entras a la seleccion de campeones y activa el Radar en Vivo automaticamente. Ves en tiempo real:</p>
+          <ul class="step-details">
+            <li>Counters y sinergias para tu campeon</li>
+            <li>Runas optimas con shards adaptativos</li>
+            <li>Hechizos de invocador recomendados</li>
+            <li>Bans sugeridos por linea</li>
+            <li>Winrate estimado del equipo 5v5</li>
+          </ul>
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">3</div>
-        <h4>Elegi campeon</h4>
-        <p>Durante la seleccion de campeones, el Radar en Vivo te muestra counters, runas, bans y consejos en tiempo real.</p>
+
+      <div class="step-row">
+        <div class="step-content">
+          <div class="step-num">3</div>
+          <h4>Importa o juega</h4>
+          <p>Con un solo click, NEXUS puede importar runas, hechizos, orden de habilidades y sets de objetos directamente al cliente de LoL. Respetando tu tecla de Flash preferida.</p>
+          <ul class="step-details">
+            <li>Importacion automatica de paginas de runas</li>
+            <li>Seleccion de hechizos (respeta D/F)</li>
+            <li>Orden de habilidades Q>W>E>R</li>
+            <li>Set de objetos con core build y early game</li>
+          </ul>
+        </div>
+        <div class="step-media">
+          <img src="assets/screenshots/meta-builds.png" alt="Builds y Objetos de NEXUS" loading="lazy" onerror="this.style.opacity='0.3'">
+        </div>
       </div>
-      <div class="step">
-        <div class="step-num">4</div>
-        <h4>Mejora</h4>
-        <p>Revisa tu perfil, recibi coaching personalizado y mira el overlay durante la partida para tomar mejores decisiones.</p>
+
+      <div class="step-row reverse">
+        <div class="step-media">
+          <img src="assets/screenshots/coaching-pro.png" alt="Coaching Pro de NEXUS" loading="lazy" onerror="this.style.opacity='0.3'">
+        </div>
+        <div class="step-content">
+          <div class="step-num">4</div>
+          <h4>Mejora y aprende</h4>
+          <p>Despues de cada partida, NEXUS analiza tu rendimiento y te da coaching personalizado basado en tus estadisticas reales.</p>
+          <ul class="step-details">
+            <li>Reporte de habitos y champion pool</li>
+            <li>Ejercicios de practica deliberada</li>
+            <li>Analisis de fatiga y estado mental</li>
+            <li>Historial completo de drafts</li>
+            <li>Overlay en partida con KDA/CS en vivo</li>
+          </ul>
+        </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -334,17 +471,54 @@
 
 <!-- ═══════════════════════════════════════ DOWNLOAD ═══════════════════════════════════════ -->
 <section id="download">
-  <div class="container" style="text-align: center;">
+  <div class="container">
     <div class="section-head">
       <h2>Descarga NEXUS</h2>
-      <p>Disponible para Windows. Requiere League of Legends instalado.</p>
+      <p>Compatible con Windows. Instalacion en menos de 2 minutos.</p>
     </div>
-    <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases" class="btn btn-primary" target="_blank" rel="noopener" style="font-size: 16px; padding: 16px 40px;">
-      Descargar ultima version
-    </a>
-    <p style="margin-top: 16px; color: var(--text-muted); font-size: 13px;">
-      Tambien disponible en <a href="https://github.com/gvrrido8664/lol-recommender-ai" target="_blank" rel="noopener">GitHub</a>
-    </p>
+
+    <div class="download-card">
+      <div class="download-info">
+        <h3>NEXUS v2.2</h3>
+        <div class="badges">
+          <span class="badge">Windows 10 / 11</span>
+          <span class="badge">Python 3.10+</span>
+          <span class="badge">Open Source</span>
+        </div>
+        <p style="margin: 16px 0; color: var(--text-muted); font-size: 14px;">Asistente de Draft con IA para League of Legends. Recomendaciones en tiempo real, overlay en partida, coaching personalizado y mas.</p>
+
+        <div class="requirements">
+          <h4>Requisitos</h4>
+          <ul>
+            <li>Windows 10 o superior (64-bit)</li>
+            <li>League of Legends instalado y actualizado</li>
+            <li>3 GB de espacio libre en disco</li>
+            <li>Conexion a internet para datos del parche</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="download-actions">
+        <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+          <span style="font-size:18px;">⬇</span> Descargar ultima version
+        </a>
+        <p class="download-note">Gratis y de codigo abierto</p>
+      </div>
+    </div>
+
+    <div class="install-steps">
+      <h4 style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">Instalacion rapida:</h4>
+      <code style="display:block; background:var(--card); padding:14px 18px; border-radius:8px; border:1px solid var(--border-subtle); color:var(--teal); font-size:13px; text-align:left; line-height:1.8;">
+git clone https://github.com/gvrrido8664/lol-recommender-ai.git<br>
+cd lol-recommender-ai<br>
+python -m venv venv<br>
+venv\Scripts\activate<br>
+pip install -r requirements.txt<br>
+python setup.py<br>
+python app.py
+      </code>
+      <p style="margin-top:10px; font-size:12px; color:var(--text-muted);">Tambien disponible como <strong>.exe</strong> compilado en <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases" target="_blank" rel="noopener">GitHub Releases</a></p>
+    </div>
   </div>
 </section>
 
@@ -358,6 +532,10 @@
       <a href="mailto:gvrrido8664@gmail.com">Contacto</a>
     </div>
     <p class="copy">NEXUS is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
+    <div class="footer-meta">
+      <span class="footer-version">v2.2</span>
+      <span style="color:var(--text-muted);font-size:11px;">&copy; 2026 Ignacio Garrido</span>
+    </div>
   </div>
 </footer>
 
