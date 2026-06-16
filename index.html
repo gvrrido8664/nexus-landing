@@ -286,11 +286,11 @@
 <!-- ═══════════════════════════════════════ HERO ═══════════════════════════════════════ -->
 <header class="hero">
   <div class="container">
-    <div class="hero-badge">v2.2 — Junio 2026</div>
+    <div class="hero-badge">v1.0.0 — Junio 2026</div>
     <h1>NEXUS</h1>
     <p class="sub">Herramienta de analisis y asistencia para League of Legends. Informacion en tiempo real para tomar mejores decisiones durante el draft, coaching personalizado y mas.</p>
     <div class="hero-buttons">
-      <a href="https://github.com/gvrrido8664/lol-recommender-ai" class="btn btn-primary" target="_blank" rel="noopener">Ver en GitHub</a>
+      <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases/download/v1.0.0/NEXUS_Setup_1.0.0.0.exe" class="btn btn-primary" target="_blank" rel="noopener">📥 Descargar Instalador</a>
       <a href="#how" class="btn btn-outline">Como funciona</a>
     </div>
   </div>
@@ -506,9 +506,9 @@
         <p>La clave de API se guarda localmente en <code>config.json</code>, fuera del ejecutable. NEXUS nunca envia tu API key a servidores externos.</p>
       </div>
       <div class="privacy-card">
-        <div class="feature-icon">🏠</div>
-        <h4>100% local</h4>
-        <p>Todos los datos se procesan y almacenan en tu equipo usando SQLite. Tu historial de partidas, drafts y estadisticas nunca salen de tu PC.</p>
+        <div class="feature-icon">☁️</div>
+        <h4>Datos en la nube (compartidos)</h4>
+        <p>Tu historial de partidas, drafts y datos de perfil se almacenan en una base de datos PostgreSQL compartida para habilitar el cacheo rapido. No se almacenan datos personales ni credenciales.</p>
       </div>
       <div class="privacy-card">
         <div class="feature-icon">🚫</div>
@@ -538,15 +538,15 @@
 
     <div class="download-card">
       <div class="download-info">
-        <h3>NEXUS v2.2</h3>
+        <h3>NEXUS v1.0.0</h3>
         <div class="badges">
           <span class="badge">Windows 10 / 11</span>
-          <span class="badge">Python 3.10+</span>
+          <span class="badge">212 MB</span>
           <span class="badge">Open Source</span>
         </div>
         <p style="margin: 16px 0; color: var(--text-muted); font-size: 14px;">
-          El proyecto esta en desarrollo activo y el codigo fuente esta disponible. 
-          Ejecutalo directamente desde el codigo o espera la version compilada proximamente.
+          Instalador autoconenido. Descarga, ejecuta y usa NEXUS al instante.
+          No requiere Python ni configuracion manual.
         </p>
 
         <div class="requirements">
@@ -554,31 +554,17 @@
           <ul>
             <li>Windows 10 o superior (64-bit)</li>
             <li>League of Legends instalado y actualizado</li>
-            <li>Python 3.10 o superior</li>
             <li>Conexion a internet para datos del parche</li>
           </ul>
         </div>
       </div>
 
       <div class="download-actions">
-        <a href="https://github.com/gvrrido8664/lol-recommender-ai" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
-          <span style="font-size:18px;">📁</span> Ver en GitHub
+        <a href="https://github.com/gvrrido8664/lol-recommender-ai/releases/download/v1.0.0/NEXUS_Setup_1.0.0.0.exe" class="btn btn-primary btn-lg" target="_blank" rel="noopener">
+          <span style="font-size:18px;">📥</span> Descargar
         </a>
-        <p class="download-note">Release compilada pronto</p>
+        <p class="download-note">v1.0.0 — Analizado en VirusTotal</p>
       </div>
-    </div>
-
-    <div class="install-steps">
-      <h4 style="font-size:13px; color:var(--text-muted); margin-bottom:10px;">Para probarlo ahora:</h4>
-      <code style="display:block; background:var(--card); padding:14px 18px; border-radius:8px; border:1px solid var(--border-subtle); color:var(--teal); font-size:13px; text-align:left; line-height:1.8;">
-git clone https://github.com/gvrrido8664/lol-recommender-ai.git<br>
-cd lol-recommender-ai<br>
-python -m venv venv<br>
-venv\Scripts\activate<br>
-pip install -r requirements.txt<br>
-python setup.py<br>
-python app.py
-      </code>
     </div>
   </div>
 </section>
@@ -594,7 +580,7 @@ python app.py
     </div>
     <p class="copy">NEXUS is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.</p>
     <div class="footer-meta">
-      <span class="footer-version">v2.2</span>
+      <span class="footer-version">v1.0.0</span>
       <span style="color:var(--text-muted);font-size:11px;">&copy; 2026 Ignacio Garrido</span>
     </div>
   </div>

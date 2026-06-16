@@ -47,7 +47,7 @@
   </ul>
 
   <h2>4. Almacenamiento de Datos</h2>
-  <p>NEXUS almacena los datos localmente en tu equipo utilizando SQLite. Los datos del juego se obtienen en tiempo real desde las APIs de Riot Games y no se almacenan en servidores externos. La configuracion de usuario se guarda en un archivo JSON en tu carpeta de aplicacion.</p>
+  <p>NEXUS almacena datos localmente en tu equipo (configuracion de usuario en <code>config.json</code> en <code>%APPDATA%\LoLRecommender</code>). Ademas, para acelerar la carga de estadisticas, los datos de partidas, drafts y perfil se cachean en una base de datos PostgreSQL compartida. No se almacenan datos personales ni credenciales en la nube.</p>
 
   <h2>5. Datos de la API de Riot Games</h2>
   <p>NEXUS utiliza la API de Riot Games de acuerdo con las politicas de desarrollador de Riot Games. Los datos obtenidos a traves de esta API se procesan localmente y no se comparten, venden ni distribuyen a terceros.</p>
@@ -57,6 +57,7 @@
   <ul>
     <li>API de Riot Games (para obtener datos del juego)</li>
     <li>Data Dragon de Riot (para descargar iconos y assets del juego)</li>
+    <li>Base de datos PostgreSQL compartida en Render (cache de partidas y drafts)</li>
     <li>GitHub Releases API (para verificar actualizaciones de la aplicacion)</li>
     <li>Discord RPC (opcional, solo si el usuario tiene Discord abierto)</li>
   </ul>
